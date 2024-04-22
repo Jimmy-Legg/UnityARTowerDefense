@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Manager : MonoBehaviour
 {
@@ -14,18 +16,36 @@ public class Manager : MonoBehaviour
     }
 
     public GameObject standardMachineGunPrefab;
-    public GameObject Level2MachineGunPrefab;
+    public GameObject standardMissileLauncher;
 
-    private GameObject machineGunToBuild;
+    public GameObject buildEffect;
 
+    private TurretBlueprint machineGunToBuild;
 
-    public GameObject GetMachineGunToBuild()
+    public bool CanBuild { get { return machineGunToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.money >= machineGunToBuild.cost; } }
+
+    public void SelectTurretToBuild(TurretBlueprint turret)
     {
-        return machineGunToBuild;
+        machineGunToBuild = turret;
     }
 
-    public void SetMachineGunToBuild(GameObject machineGun)
+    public void BuildTurretOn(Node node)
     {
-        machineGunToBuild = machineGun;
+        if (PlayerStats.money < machineGunToBuild.cost)
+        {
+            Debug.Log("Not enough money to build that !");
+            return;
+        }
+
+        PlayerStats.money -= machineGunToBuild.cost;
+
+        GameObject turret = (GameObject)Instantiate(machineGunToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
+        node.turret = turret;
+
+        GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Debug.Log("Turret build ! Money left: " + PlayerStats.money);
     }
 }

@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bfa0019490ee949a9e3d483e2e1a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 70
+  explotionRadius: 0
+  speed: 50
   impactEffect: {fileID: 8884866969388299257, guid: 6588786d4e382ce498b132859a9b7012, type: 3}
 --- !u!96 &7418271197251908547
 TrailRenderer:
@@ -155,7 +156,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.55737686
+        value: 0.41272354
         inSlope: -0.092785776
         outSlope: -0.092785776
         tangentMode: 0
@@ -163,7 +164,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.17667842
       - serializedVersion: 3
-        time: 1
+        time: 0.37709045
         value: 0
         inSlope: -0.6161627
         outSlope: -0.6161627
@@ -176,8 +177,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.9716981, g: 0.9210695, b: 0.2979263, a: 1}
+      key1: {r: 1, g: 0.4189905, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

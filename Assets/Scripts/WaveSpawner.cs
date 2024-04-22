@@ -5,34 +5,38 @@ using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour
 {
     public Transform enemyPrefab;
-
     public Transform spawnPoint;
 
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 20f;
     private float countDown = 2f;
 
     public Text waveCountDownText;
+    public Text waves;
 
-    private int waveIndex = 0;
+    public int waveIndex = 0;
+    private int EnemyCount = 0;
 
     private void Update()
     {
-        if (countDown <= 0f)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 || countDown <= 0f)
         {
             StartCoroutine(SpawnWave());
             countDown = timeBetweenWaves;
+        }else
+        {
+            countDown -= Time.deltaTime;
         }
 
-        countDown -= Time.deltaTime;
-
-        waveCountDownText.text = Mathf.Floor(countDown).ToString();
+        countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
+        waveCountDownText.text = string.Format("{0:00.0}", countDown);
+        waves.text = "Wave: " + waveIndex.ToString() + " ";
     }
 
     IEnumerator SpawnWave()
     {
+        EnemyCount++;
         waveIndex++;
-
-        for (int i = 0; i < waveIndex; i++)
+        for (int i = 0; i < EnemyCount; i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(0.5f);
