@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     {
         if (wayepointIndex >= Waypoints.points.Length - 1)
         {
+            PlayerStats.health = PlayerStats.health - 10;
             Destroy(gameObject);
             return;
         }

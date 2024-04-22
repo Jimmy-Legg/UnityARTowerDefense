@@ -11,12 +11,36 @@ public class PlayerStats : MonoBehaviour
 
     public static int health;
     public int startHealth = 100;
-    
 
     private void Start()
     {
         money = startMoney;
         health = startHealth;
-        healthBar.SetMaxHealth(health);
+
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(health);
+        }
+        else
+        {
+            Debug.LogError("HealthBar is not assigned!");
+        }
+    }
+
+    private void Update()
+    {
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(health);
+        }
+        else
+        {
+            Debug.LogError("HealthBar is not assigned!");
+        }
+
+        if (health <= 0)
+        {
+            Debug.Log("Game Over");
+        }
     }
 }
