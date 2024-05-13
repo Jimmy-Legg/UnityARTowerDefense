@@ -5,26 +5,44 @@ using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour
 {
     public Transform enemyPrefab;
-    public Transform spawnPoint;
+    private Transform spawnPoint;
 
-    public float timeBetweenWaves = 20f;
+    public float timeBetweenWaves = 30f;
     private float countDown = 2f;
 
     public Text waveCountDownText;
     public Text waves;
 
-    public int waveIndex = 0;
+    public static int waveIndex;
+    public int startWaveIndex = 0;
     private int EnemyCount = 0;
+
+    private Transform startPointObject;
+
+    private GameController gameController;
+
+    private void Start()
+    {
+        waveIndex = startWaveIndex;
+        gameController = FindFirstObjectByType<GameController>();
+    }
 
     private void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 || countDown <= 0f)
+        // Check if both start and end points are placed
+        if (GameController.startPointPlaced && GameController.endPointPlaced)
         {
-            StartCoroutine(SpawnWave());
-            countDown = timeBetweenWaves;
-        }else
-        {
-            countDown -= Time.deltaTime;
+            startPointObject = GameObject.FindGameObjectWithTag("StartPoint").transform;
+            // Start counting down and spawn waves
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 || countDown <= 0f)
+            {
+                StartCoroutine(SpawnWave());
+                countDown = timeBetweenWaves;
+            }
+            else
+            {
+                countDown -= Time.deltaTime;
+            }
         }
 
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
@@ -36,6 +54,7 @@ public class WaveSpawner : MonoBehaviour
     {
         EnemyCount++;
         waveIndex++;
+        PlayerStats.round++;
         for (int i = 0; i < EnemyCount; i++)
         {
             SpawnEnemy();
@@ -45,6 +64,13 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        if (startPointObject != null)
+        {
+            Instantiate(enemyPrefab, startPointObject.position, startPointObject.rotation);
+        }
+        else
+        {
+            Debug.LogError("Spawn point is null. Enemy cannot be spawned.");
+        }
     }
 }

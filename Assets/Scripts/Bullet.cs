@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +5,34 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Transform target;
+    public GameObject impactEffect;
+    public GameObject lightPrefab; 
+    private Light bulletLight; 
+    public float lightDuration = 10f;
+
     public float explotionRadius = 0f;
     public float speed = 70f;
-    public GameObject impactEffect;
+    public int damage;
 
-    public void Seek (Transform _target)
+    public void Seek(Transform _target)
     {
         target = _target;
+        GameObject lightObject = Instantiate(lightPrefab, transform.position, Quaternion.identity);
+        bulletLight = lightObject.GetComponent<Light>();
+        Destroy(lightObject, lightDuration); 
     }
-
 
     void Update()
     {
-        if (target == null) 
-        { 
+        if (target == null)
+        {
             Destroy(gameObject);
             return;
         }
 
         Vector3 dir = target.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;   
-        if (dir.magnitude <= distanceThisFrame) 
+        float distanceThisFrame = speed * Time.deltaTime;
+        if (dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
             return;
@@ -41,7 +47,7 @@ public class Bullet : MonoBehaviour
         GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 5f);
 
-        if(explotionRadius > 0f)
+        if (explotionRadius > 0f)
         {
             Explode();
         }
@@ -50,27 +56,28 @@ public class Bullet : MonoBehaviour
             Damage(target);
         }
 
-        Destroy(target.gameObject);
-        Destroy(gameObject, 2f);
-
+        Destroy(gameObject);
     }
 
     private void Explode()
     {
-        Collider[] colliders =  Physics.OverlapSphere(transform.position, explotionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explotionRadius);
         foreach (Collider collider in colliders)
         {
             if (collider.tag == "Enemy")
             {
                 Damage(collider.transform);
             }
-        }   
+        }
     }
 
     private void Damage(Transform enemy)
     {
-        PlayerStats.money = PlayerStats.money + 5;
-        Destroy(enemy.gameObject);
+        Enemy e = enemy.GetComponent<Enemy>();
+        if (e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
 
     private void OnDrawGizmosSelected()

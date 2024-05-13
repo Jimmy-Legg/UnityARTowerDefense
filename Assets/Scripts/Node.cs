@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,17 +5,19 @@ public class Node : MonoBehaviour
 {
     public Color hoverColor;
     public Color problemColor;
-    public Vector3 positionOffset;
-
 
     [Header("Optional")]
     public GameObject turret;
 
     private Renderer rend;
+    private Color startColor;
 
-    public Color startColor;
+    private Manager manager;
 
-    Manager manager;
+    private GameObject previewPrefab;
+
+    private float lastTapTime;
+    private const float doubleTapTimeThreshold = 0.2f;
 
     private void Start()
     {
@@ -26,9 +26,9 @@ public class Node : MonoBehaviour
         manager = Manager.instance;
     }
 
-    public Vector3 GetBuildPosition()
+    public Vector3 GetBuildPosition(Vector3 offset)
     {
-        return transform.position + positionOffset;
+        return transform.position + offset;
     }
 
     private void OnMouseDown()
@@ -38,39 +38,30 @@ public class Node : MonoBehaviour
 
         if (!manager.CanBuild)
             return;
-        if(turret != null)
+        if (turret != null)
         {
-            Debug.Log("Cant Build - TODO display on screen");
+            Debug.Log("Can't Build - TODO display on screen");
             return;
         }
 
-        manager.BuildTurretOn(this);
-    }
-
-    private void OnMouseEnter()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-        
-        if (!manager.CanBuild)
-            return;
-
-        if (!manager.HasMoney)
+        float timeSinceLastTap = Time.time - lastTapTime;
+        if (timeSinceLastTap < doubleTapTimeThreshold)
         {
-            rend.material.color = problemColor;
-        }
-        else if (turret != null)
-        {
-            rend.material.color = problemColor;
+            // Double tap detected
+            BuildTurret();
         }
         else
         {
-            rend.material.color = hoverColor;
+            lastTapTime = Time.time;
         }
     }
 
-    private void OnMouseExit()
+    private void BuildTurret()
     {
-        rend.material.color = startColor;
+        if (previewPrefab != null)
+        {
+            Destroy(GameObject.Find(previewPrefab.name + "(Clone)"));
+        }
+
     }
 }

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Manager : MonoBehaviour
 {
@@ -11,41 +7,82 @@ public class Manager : MonoBehaviour
     private void Awake()
     {
         if (instance != null)
-            Debug.Log("More than one BuildManager in sceene !");
+            Debug.Log("More than one BuildManager in scene!");
         instance = this;
     }
 
-    public GameObject standardMachineGunPrefab;
-    public GameObject standardMissileLauncher;
-
+    [Header("Effect")]
     public GameObject buildEffect;
 
-    private TurretBlueprint machineGunToBuild;
+    private TurretBlueprint TurretToBuild;
 
-    public bool CanBuild { get { return machineGunToBuild != null; } }
-    public bool HasMoney { get { return PlayerStats.money >= machineGunToBuild.cost; } }
+    public bool CanBuild { get { return TurretToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.money >= TurretToBuild.cost; } }
 
     public void SelectTurretToBuild(TurretBlueprint turret)
     {
-        machineGunToBuild = turret;
+        if (turret != null)
+        {
+            TurretToBuild = turret;
+            Debug.Log("Selected turret to build: " + TurretToBuild.prefab.name);
+        }
+        else
+        {
+            Debug.LogError("Cannot select a null turret blueprint!");
+        }
     }
 
-    public void BuildTurretOn(Node node)
+
+    public void DeselectTurretToBuild()
     {
-        if (PlayerStats.money < machineGunToBuild.cost)
+        TurretToBuild = null;
+    }
+
+    public void BuildTurretOn()
+    {
+        Debug.Log("Building turret: " + (TurretToBuild != null ? TurretToBuild.prefab.name : "TurretToBuild is null"));
+        if (TurretToBuild == null)
         {
-            Debug.Log("Not enough money to build that !");
+            Debug.LogError("No turret selected to build!");
             return;
         }
 
-        PlayerStats.money -= machineGunToBuild.cost;
+        if (PlayerStats.money < TurretToBuild.cost)
+        {
+            Debug.Log("Not enough money to build that!");
+            return;
+        }
 
-        GameObject turret = (GameObject)Instantiate(machineGunToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
-        node.turret = turret;
+        if (TurretToBuild.prefab == null)
+        {
+            Debug.LogError("Prefab for selected turret is null!");
+            return;
+        }
 
-        GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
+        PlayerStats.money -= TurretToBuild.cost;
 
-        Debug.Log("Turret build ! Money left: " + PlayerStats.money);
+        Vector3 touchPosition = Input.GetTouch(0).position;
+        Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(TurretToBuild.prefab + "Prefab");
+            Instantiate(TurretToBuild.prefab, hit.point, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("No collider hit when trying to place turret!");
+        }
+
+        Debug.Log("Turret built! Money left: " + PlayerStats.money);
+    }
+
+    public Vector3 GetPreviewOffset()
+    {
+        if (TurretToBuild == null)
+            return Vector3.zero;
+
+        // Return the position offset of the selected turret blueprint
+        return TurretToBuild.positionOffset;
     }
 }

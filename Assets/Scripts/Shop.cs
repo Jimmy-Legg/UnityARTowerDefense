@@ -2,26 +2,67 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public static Shop instance;
+
     public TurretBlueprint standardMachineGun;
     public TurretBlueprint missileLauncher;
-    Manager manager;
+    public TurretBlueprint laserGun;
 
-    private void Start()
+    private void Awake()
     {
-        manager = Manager.instance;
+        if (instance != null)
+            Debug.Log("More than one Shop in scene!");
+        instance = this;
     }
+
+    public TurretBlueprint selectedTurret;
+
     public void SelectStandardMachineGun()
     {
-        Debug.Log("Selected Standard MachineGun");
-
-        manager.SelectTurretToBuild(standardMachineGun);
+        if (selectedTurret == standardMachineGun)
+        {
+            Debug.Log("Deselected Standard MachineGun");
+            Manager.instance.DeselectTurretToBuild();
+            selectedTurret = null;
+        }
+        else
+        {
+            Debug.Log("Selected Standard MachineGun");
+            Manager.instance.SelectTurretToBuild(standardMachineGun);
+            selectedTurret = standardMachineGun;
+        }
     }
+
 
     public void SelectMissileLauncher()
     {
-        Debug.Log("Selected Standard Other");
+        if (selectedTurret == missileLauncher)
+        {
+            Debug.Log("Deselected Missile Launcher");
+            Manager.instance.DeselectTurretToBuild();
+            selectedTurret = null;
+        }
+        else
+        {
+            Debug.Log("Selected Missile Launcher");
+            Manager.instance.SelectTurretToBuild(missileLauncher);
+            selectedTurret = missileLauncher;
+        }
+    }
 
-        manager.SelectTurretToBuild(missileLauncher);
-
+    public void SelectLaserGun()
+    {
+        if (selectedTurret == laserGun)
+        {
+            Debug.Log("Deselected Laser Gun");
+            Manager.instance.DeselectTurretToBuild();
+            selectedTurret = null;
+        }
+        else
+        {
+            Debug.Log("Selected Laser gun");
+            Manager.instance.SelectTurretToBuild(laserGun);
+            selectedTurret = laserGun;
+        }
     }
 }

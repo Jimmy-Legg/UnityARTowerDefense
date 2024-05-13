@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 720979669319418235}
   m_Layer: 0
-  m_Name: TurningPoint
+  m_Name: PartToRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,15 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2516465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.77
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.809599
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -106,15 +106,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -8.8675725e-12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -162,15 +162,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4670449790555566414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac8fbce095b987448e29a5bd651ef0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 67aad95cb7e1d70439cd80db4a115667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  range: 20
-  fireRate: 3
+  range: 15
+  fireRate: 2
   enemyTag: Enemy
   partToRotate: {fileID: 720979669319418235}
-  turnSpeed: 10
+  turnSpeed: 6
   bulletPrefab: {fileID: 2498372004247108635, guid: ba9b1c2359fdf564884901cc9a1c1682, type: 3}
   firePoint: {fileID: 2200592095315802465}
 --- !u!1001 &5707538898398233924

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -9,13 +10,16 @@ public class PlayerStats : MonoBehaviour
     public static int money;
     public int startMoney = 300;
 
-    public static int health;
-    public int startHealth = 100;
+    public static float health;
+    public float startHealth = 100f;
+
+    public static int round;
 
     private void Start()
     {
         money = startMoney;
         health = startHealth;
+        round = 0;
 
         if (healthBar != null)
         {
@@ -36,11 +40,6 @@ public class PlayerStats : MonoBehaviour
         else
         {
             Debug.LogError("HealthBar is not assigned!");
-        }
-
-        if (health <= 0)
-        {
-            Debug.Log("Game Over");
         }
     }
 }

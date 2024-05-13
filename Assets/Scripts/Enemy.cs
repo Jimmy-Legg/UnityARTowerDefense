@@ -1,40 +1,68 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 5f;
 
-    private Transform target;
-    private int wayepointIndex = 0;
+    public HealthBar healthBar;
+
+    public Text healthText;
+
+    public GameObject deathEffect;
+
+    [HideInInspector]
+    public float speed;
+
+    public float startSpeed = 5f;
+
+    [HideInInspector]
+    public float health;
+
+    public float startHealth = 100f;
+
+    public static int worth;
+    public int startWorth = 50;
+
 
     private void Start()
     {
-        target = Waypoints.points[0];
+        speed = startSpeed;
+        health = startHealth + (WaveSpawner.waveIndex * 60);
+        worth = startWorth;
+        healthBar.SetMaxHealth(health);
+        UpdateHealthText();
     }
 
-    private void Update()
+    public void TakeDamage(float amount)
     {
-        Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World) ;
-
-        if ( Vector3.Distance(transform.position, target.position) <= 0.2f)
+        health -= amount;
+        healthBar.SetHealth(health);
+        UpdateHealthText();
+        if (health <= 0)
         {
-            GetNextWaypoint();
+            Die();
         }
-
     }
 
-     void GetNextWaypoint()
+    private void Die()
     {
-        if (wayepointIndex >= Waypoints.points.Length - 1)
-        {
-            PlayerStats.health = PlayerStats.health - 10;
-            Destroy(gameObject);
-            return;
-        }
+        PlayerStats.money += worth;
+        worth = worth + 10;
 
-        wayepointIndex++;
-        target = Waypoints.points[wayepointIndex];
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
+    }
+
+    private void UpdateHealthText()
+    {
+        healthText.text = "HP: " + health.ToString();
+    }
+
+    public void Slow(float pct)
+    {
+        speed = startSpeed * (1f - pct);
     }
 }
