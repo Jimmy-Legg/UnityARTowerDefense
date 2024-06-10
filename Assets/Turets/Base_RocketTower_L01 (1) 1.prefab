@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_RocketTower_L01 (1) 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 188f9a8488e154edf8adf142f5696547, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 188f9a8488e154edf8adf142f5696547, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3

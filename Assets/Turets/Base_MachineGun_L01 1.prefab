@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_MachineGun_L01 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -204,10 +208,41 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7227560652571827922}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5508965324200951947}
   m_SourcePrefab: {fileID: 100100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
 --- !u!4 &5725103194235882967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
   m_PrefabInstance: {fileID: 5725103194236016471}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5725103194236113399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
+  m_PrefabInstance: {fileID: 5725103194236016471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &-5508965324200951947
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725103194236113399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.92
+  m_Height: 0.79960597
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.2, z: 0}

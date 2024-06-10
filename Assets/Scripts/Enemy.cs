@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static DataManager;
 
 public class Enemy : MonoBehaviour
 {
@@ -28,11 +29,12 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         speed = startSpeed;
-        health = startHealth + (WaveSpawner.waveIndex * 60);
+        health = startHealth + (WaveSpawner.waveIndex * 40 * DifficultyModifier.Multiplicator());
         worth = startWorth;
         healthBar.SetMaxHealth(health);
         UpdateHealthText();
     }
+
 
     public void TakeDamage(float amount)
     {
@@ -48,7 +50,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         PlayerStats.money += worth;
-        worth = worth + 10;
 
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     private void UpdateHealthText()
     {
-        healthText.text = "HP: " + health.ToString();
+        healthText.text = "HP: " + string.Format("{0:00.0}", health);
     }
 
     public void Slow(float pct)

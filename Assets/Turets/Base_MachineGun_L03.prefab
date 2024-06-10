@@ -78,6 +78,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_MachineGun_L03
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dca1d127a63854ace99cfd10bf9916cd, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dca1d127a63854ace99cfd10bf9916cd, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

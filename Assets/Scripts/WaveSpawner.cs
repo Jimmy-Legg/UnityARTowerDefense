@@ -7,7 +7,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform enemyPrefab;
     private Transform spawnPoint;
 
-    public float timeBetweenWaves = 30f;
+    public float timeBetweenWaves = 20f;
     private float countDown = 2f;
 
     public Text waveCountDownText;
@@ -29,13 +29,13 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Check if both start and end points are placed
         if (GameController.startPointPlaced && GameController.endPointPlaced)
         {
             startPointObject = GameObject.FindGameObjectWithTag("StartPoint").transform;
-            // Start counting down and spawn waves
             if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 || countDown <= 0f)
             {
+                if (waveIndex >= 30)
+                    return;
                 StartCoroutine(SpawnWave());
                 countDown = timeBetweenWaves;
             }

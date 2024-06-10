@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EMP_Tower_level_1
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b665f727f980d441bb9aefcd169f872f, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b665f727f980d441bb9aefcd169f872f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

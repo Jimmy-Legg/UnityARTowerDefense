@@ -5,31 +5,38 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-[RequireComponent(typeof(ARRaycastManager)),
-    RequireComponent(typeof(ARPlaneManager))]
+[RequireComponent(typeof(ARRaycastManager)), RequireComponent(typeof(ARPlaneManager))]
 public class PlaceObjectOnPlane : MonoBehaviour
 {
+    // Référence au contrôleur de jeu
     public GameController gameController;
 
+    // Préfabriqués pour les objets de départ et de fin
     [SerializeField]
     private GameObject startPrefab;
 
     [SerializeField]
     private GameObject endPrefab;
 
+    // Gestionnaires AR pour le raycasting et la gestion des plans
     private ARRaycastManager raycastManager;
     private ARPlaneManager planeManager;
 
+    // Liste pour stocker les résultats des hits de raycasting
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    private GameObject currentPrefab;
+    // Instances des objets de départ et de fin
+    private GameObject startInstance;
+    private GameObject endInstance;
 
+    // Initialisation des gestionnaires AR
     private void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
         planeManager = GetComponent<ARPlaneManager>();
     }
 
+    // Activation des simulations et support de touches améliorées, ajout du gestionnaire d'événements
     private void OnEnable()
     {
         EnhancedTouch.TouchSimulation.Enable();
@@ -37,6 +44,7 @@ public class PlaceObjectOnPlane : MonoBehaviour
         EnhancedTouch.Touch.onFingerDown += FingerDown;
     }
 
+    // Désactivation des simulations et support de touches améliorées, suppression du gestionnaire d'événements
     private void OnDisable()
     {
         EnhancedTouch.TouchSimulation.Disable();
@@ -44,34 +52,59 @@ public class PlaceObjectOnPlane : MonoBehaviour
         EnhancedTouch.Touch.onFingerDown -= FingerDown;
     }
 
-    private void FingerDown(EnhancedTouch.Finger finger)
+    // Démarrage, s'assure que les points de départ et de fin ne sont pas placés initialement
+    private void Start()
     {
-        if (finger.index != 0) return;
-
-        if (!GameController.startPointPlaced)
+        if (startInstance != null)
         {
-            PlacePrefab(startPrefab);
-            GameController.startPointPlaced = true;
+            Destroy(startInstance);
+            GameController.startPointPlaced = false;
         }
-        else if (!GameController.endPointPlaced) 
+        if (endInstance != null)
         {
-            PlacePrefab(endPrefab);
-            GameController.endPointPlaced = true;
+            Destroy(endInstance);
+            GameController.endPointPlaced = false;
         }
     }
 
-
-    private void PlacePrefab(GameObject prefab)
+    // Gestionnaire d'événements
+    private void FingerDown(EnhancedTouch.Finger finger)
     {
-        if (raycastManager.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), hits, TrackableType.PlaneWithinPolygon))
+        // Ignore si ce n'est pas le premier doigt
+        if (finger.index != 0) return;
+
+        // Vérifie si la touche est sur un plan détecté
+        if (raycastManager.Raycast(finger.screenPosition, hits, TrackableType.PlaneWithinPolygon))
         {
-            foreach (ARRaycastHit hit in hits)
+            // Place le point de départ s'il n'est pas encore placé
+            if (!GameController.startPointPlaced)
             {
-                Pose pose = hit.pose;
-                Instantiate(prefab, pose.position, pose.rotation);
-                currentPrefab = prefab;
-                return;
+                PlacePrefab(startPrefab, ref startInstance);
+                GameController.startPointPlaced = true;
             }
+            // Place le point de fin s'il n'est pas encore placé
+            else if (!GameController.endPointPlaced)
+            {
+                PlacePrefab(endPrefab, ref endInstance);
+                GameController.endPointPlaced = true;
+            }
+        }
+    }
+
+    // Méthode pour placer un préfabriqué sur le premier hit de raycasting
+    private void PlacePrefab(GameObject prefab, ref GameObject instance)
+    {
+        foreach (ARRaycastHit hit in hits)
+        {
+            Pose pose = hit.pose;
+            // Supprime l'instance précédente si elle existe
+            if (instance != null)
+            {
+                Destroy(instance);
+            }
+            // Instancie le nouveau préfabriqué à la position du hit
+            instance = Instantiate(prefab, pose.position, pose.rotation);
+            return;
         }
     }
 }

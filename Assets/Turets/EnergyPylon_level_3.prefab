@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergyPylon_level_3
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: de71096fe1f7240cdbd41d7a05a18524, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: de71096fe1f7240cdbd41d7a05a18524, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

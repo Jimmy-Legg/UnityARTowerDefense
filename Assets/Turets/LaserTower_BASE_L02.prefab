@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserTower_BASE_L02
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 85a7f547df06a4dd0a488c2c45f76e64, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 85a7f547df06a4dd0a488c2c45f76e64, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

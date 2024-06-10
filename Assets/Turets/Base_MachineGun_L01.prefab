@@ -142,17 +142,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_MachineGun_L01
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       propertyPath: m_LocalPosition.x
@@ -208,6 +212,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1124579676651322566}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1342618879026578747}
   m_SourcePrefab: {fileID: 100100000, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
 --- !u!4 &5725103194235882967 stripped
 Transform:
@@ -231,17 +238,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67aad95cb7e1d70439cd80db4a115667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretType: 0
+  turretLevel: 1
   target: {fileID: 0}
-  range: 1.2
+  range: 1
   bulletPrefab: {fileID: 2498372004247108635, guid: ba9b1c2359fdf564884901cc9a1c1682, type: 3}
   fireRate: 0.6
-  useLaser: 0
   damageOverTime: 30
   slowPct: 0.5
   lineRenderer: {fileID: 0}
   impactEffect: {fileID: 0}
   impactLight: {fileID: 0}
-  enemyTag: Enemy
   partToRotate: {fileID: 7227560652571827922}
   turnSpeed: 5
   firePoint: {fileID: 3638454199421169296}
+  firePoint1: {fileID: 0}
+  firePoint2: {fileID: 0}
+  sellPrice: 50
+  turretBlueprint:
+    prefab: {fileID: 0}
+    cost: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    upgradedPrefab: {fileID: 0}
+    upgradeCost: 0
+  isUpgraded: 0
+--- !u!136 &1342618879026578747
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725103194236113399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.90684396
+  m_Height: 0.79960597
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

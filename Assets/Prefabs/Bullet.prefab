@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 29.063124, y: -8.102253, z: 39.993576}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6697451496084638144}
@@ -104,7 +104,7 @@ MonoBehaviour:
   lightPrefab: {fileID: 5136440920377956448}
   lightDuration: 1
   explotionRadius: 0
-  speed: 1
+  speed: 2
   damage: 50
 --- !u!96 &7418271197251908547
 TrailRenderer:

@@ -50,7 +50,7 @@ MonoBehaviour:
   lightPrefab: {fileID: 9017562111768886663}
   lightDuration: 2
   explotionRadius: 0.5
-  speed: 0.25
+  speed: 0.5
   damage: 50
 --- !u!1 &6451277235234430826
 GameObject:

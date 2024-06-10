@@ -5001,17 +5001,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserTower_BASE_L01 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5197,20 +5201,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67aad95cb7e1d70439cd80db4a115667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretType: 0
+  turretLevel: 1
   target: {fileID: 0}
   range: 1.5
   bulletPrefab: {fileID: 2498372004247108635, guid: ba9b1c2359fdf564884901cc9a1c1682, type: 3}
   fireRate: 10
-  useLaser: 1
   damageOverTime: 10
   slowPct: 0.5
   lineRenderer: {fileID: 756701122259781093}
   impactEffect: {fileID: 4045209500116113122}
   impactLight: {fileID: 5855673966073821524}
-  enemyTag: Enemy
   partToRotate: {fileID: 1064445268017169935}
   turnSpeed: 15
   firePoint: {fileID: 5096608231189938275}
+  firePoint1: {fileID: 0}
+  firePoint2: {fileID: 0}
+  sellPrice: 50
+  turretBlueprint:
+    prefab: {fileID: 0}
+    cost: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    upgradedPrefab: {fileID: 0}
+    upgradeCost: 0
+  isUpgraded: 0
 --- !u!4 &712338680109638670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b033c863a55c94b0faefde576ffd460a, type: 3}

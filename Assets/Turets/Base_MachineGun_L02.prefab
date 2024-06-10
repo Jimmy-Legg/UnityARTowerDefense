@@ -76,17 +76,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base_MachineGun_L02
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eef9d1528875a43edb151eb2f6326ff4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -165,14 +169,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67aad95cb7e1d70439cd80db4a115667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretType: 0
+  turretLevel: 1
   target: {fileID: 0}
   range: 15
+  bulletPrefab: {fileID: 2498372004247108635, guid: ba9b1c2359fdf564884901cc9a1c1682, type: 3}
   fireRate: 2
-  enemyTag: Enemy
+  damageOverTime: 30
+  slowPct: 0.5
+  lineRenderer: {fileID: 0}
+  impactEffect: {fileID: 0}
+  impactLight: {fileID: 0}
   partToRotate: {fileID: 720979669319418235}
   turnSpeed: 6
-  bulletPrefab: {fileID: 2498372004247108635, guid: ba9b1c2359fdf564884901cc9a1c1682, type: 3}
   firePoint: {fileID: 2200592095315802465}
+  firePoint1: {fileID: 0}
+  firePoint2: {fileID: 0}
+  sellPrice: 50
+  turretBlueprint:
+    prefab: {fileID: 0}
+    cost: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    upgradedPrefab: {fileID: 0}
+    upgradeCost: 0
+  isUpgraded: 0
 --- !u!1001 &5707538898398233924
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Manager : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class Manager : MonoBehaviour
     private void Awake()
     {
         if (instance != null)
-            Debug.Log("More than one BuildManager in scene!");
+            Debug.Log("More than one Manager in scene!");
         instance = this;
     }
 
@@ -31,7 +32,6 @@ public class Manager : MonoBehaviour
             Debug.LogError("Cannot select a null turret blueprint!");
         }
     }
-
 
     public void DeselectTurretToBuild()
     {
@@ -59,24 +59,55 @@ public class Manager : MonoBehaviour
             return;
         }
 
-        PlayerStats.money -= TurretToBuild.cost;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("Touch is over a UI element!");
+            return;
+        }
 
         Vector3 touchPosition = Input.GetTouch(0).position;
         Ray ray = Camera.main.ScreenPointToRay(touchPosition);
         RaycastHit hit;
+
         if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log(TurretToBuild.prefab + "Prefab");
+            // Check if the placement position overlaps with any existing turret's range area
+            Turret[] turrets = FindObjectsOfType<Turret>();
+            foreach (Turret turret in turrets)
+            {
+                if (Vector3.Distance(turret.transform.position, hit.point) < turret.range)
+                {
+                    Debug.LogError("Cannot place turret within the range of another turret!");
+                    return;
+                }
+            }
+
+            PlayerStats.money -= TurretToBuild.cost;
+
+            Debug.Log(TurretToBuild.prefab + " Prefab");
             Instantiate(TurretToBuild.prefab, hit.point, Quaternion.identity);
+            Debug.Log("Turret built! Money left: " + PlayerStats.money);
         }
         else
         {
             Debug.LogError("No collider hit when trying to place turret!");
         }
-
-        Debug.Log("Turret built! Money left: " + PlayerStats.money);
+    }
+    public void ShowNodeUI(Turret turret)
+    {
+        if (turret != null && turret.turretUI != null)
+        {
+            turret.turretUI.GetComponent<NodeUI>().SetTarget(turret);
+        }
     }
 
+    public void HideNodeUI(Turret turret)
+    {
+        if (turret != null && turret.turretUI != null)
+        {
+            turret.turretUI.GetComponent<NodeUI>().Hide();
+        }
+    }
     public Vector3 GetPreviewOffset()
     {
         if (TurretToBuild == null)
