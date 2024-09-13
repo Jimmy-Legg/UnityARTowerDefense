@@ -22,7 +22,7 @@ The AR Tower Defense game is a strategy game where players can place virtual def
 You can place virtual turrets in real-world environments by pointing your device's camera at a surface and selecting a turret type from the user interface. Your placed turrets will then defend against waves of incoming enemies, and you must manage your resources and turret upgrades to survive as long as possible.
 
 ## Versioning
-In the future
+Git
 
 ## Authors
 [Jimmy-legg](https://github.com/Jimmy-Legg/)
